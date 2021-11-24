@@ -1,0 +1,12 @@
+mixin createSuggestion(suggestion)
+    .col-md-3
+        .card
+            //- img(src=`/img/${suggestion.imageUrl}` alt=`${suggestion.description}`).card-img-top
+            .card-body
+                h4.card-title
+                    a(href=`/suggestion/${suggestion._id}`) #{suggestion.name}
+                                
+                            
+            .card-footer.text-center                
+
+                a(href=`/suggestion/${suggestion._id}`).btn.btn-outline-primary.btn-sm Detaylar 

@@ -1,0 +1,47 @@
+extends ../layouts/main-layout.pug
+
+block content
+
+    if (action !== 'undefined' && action === 'request')
+        div.alert.alert-success Öneri değerlendiren başvurunuz alınmıştır.
+    
+    if (action !== 'undefined' && action === 'cantrequest')
+        div.alert.alert-danger Daha önceden başvurunuz bulunmaktadır.
+
+    .container
+    hr
+    .col-md-9
+        label(for='first_name')
+        h4 Ad&imath;
+        h6(class="text") #{user.name}
+        //-  input#adi.form-control(type='text' name='adi' placeholder='Adı' title='')
+
+        label(for='last_name')
+        h4 Soyad&imath;
+        //-  input#soyadi.form-control(type='text' name='soyadi' placeholder='Soyadi' title='')
+        h6(class="text") #{user.surname}
+
+        label(for='last_name')
+        h4 E-Posta
+        //- input#eposta.form-control(type='text' name='eposta' placeholder='E-Posta' title='')
+        h6(class="text") #{user.email}
+
+        label(for='last_name')
+        h4 Yetkisi
+        if user.isEvaluater === true
+            h6(class="text") Öneri Değerlendiren
+        else
+            h6(class="text") Öneri Veren
+            form(action='/evaluater-request' method='POST')
+                input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                input(type='hidden' name='userid' value=`${user._id}`)
+                button(type='submit').btn.btn-danger.btn-sm Öneri Değerlendiren Başvurusu
+
+        //- input#yetki.form-control(type='text' name='yetki' placeholder='Öneri Değerlendiren' title='')
+
+        label(for="activationCode")
+        h4 Profil onay kodu gir
+        input#activation.form-control(type='text' name='activation')
+        br
+        input(type="submit" value="Kodu gönder" name='activationButton').btn.btn-primary    
+    hr

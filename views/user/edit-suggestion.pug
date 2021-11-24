@@ -1,0 +1,35 @@
+extends ../layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet" href="/css/forms.css")
+
+block content
+    br
+    .container
+    p(class="h2 text-center") Öneriyi Düzenle
+    br
+    .col-md-9
+        form(action="/suggestions" method="POST")
+    
+            input(type="hidden" name="id" value=`${suggestion._id}`)
+            input(type="hidden" name="_csrf" value=`${csrfToken}`)
+            .form-group.row
+                label(for="name").col-sm-2.col-form-label Başlık
+                .col-sm-10
+                    input.form-control#name(type="text" name="name"  value=`${suggestion.name}`)  
+
+
+            .form-group.row
+                label(for="imageUrl").col-sm-2.col-form-label Dosyalar
+                .col-sm-10
+                    input.form-control#image(type="text" name="imageUrl"  value=`${suggestion.imageUrl}`) 
+
+            .form-group.row
+                label(for="description").col-sm-2.col-form-label Açıklama
+                .col-sm-10
+                    textarea.form-control(name="description" cols="30" rows="10") #{suggestion.description}
+
+            .form-group.row
+                .col-sm-10.offset-sm-2
+                    input(type="submit" value="Öneriyi Güncelle").btn.btn-primary   
+           

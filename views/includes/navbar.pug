@@ -1,0 +1,27 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-primary.fixed-top
+    .container
+        a(href="/").navbar-brand Arge Öneri
+        ul.navbar-nav.mr-auto
+            li.nav-item
+                a(href="/",class='nav-link active') Ana Sayfa
+            if isAuthenticated
+                li.nav-item
+                    a(href="/profile", class=('nav-link active')) Profil    
+                li.nav-item
+                    a(href="/create-suggestion", class='nav-link active') Öneri Olutşur
+                li.nav-item
+                    a(href="/suggestions", class=('nav-link active')) Üye Önerileri
+                li.nav-item
+                    a(href="/interested-suggestions", class=('nav-link active')) İlgilendiğim Öneriler
+                //- li.nav-item
+                //-     a(href="/admin", class='nav-link active') Admin
+
+        ul.navbar-nav.ml-auto
+            if isAuthenticated
+                li.nav-item
+                    a.nav-link(href="/logout ") Çıkış
+            else
+                li.nav-item
+                    a.nav-link(href="/login") Giriş Yap
+                li.nav-item
+                    a.nav-link(href="/register") Kayıt Ol

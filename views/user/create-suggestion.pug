@@ -1,0 +1,62 @@
+extends ../layouts/main-layout.pug
+
+include ../mixins/createUsers.pug
+block content
+    br
+    .container
+    p(class="h2 text-center") Öneri Oluştur
+    br
+    .col-md-9
+        form(action="/create-suggestion" method="POST")
+            input(type="hidden" name="_csrf" value=`${csrfToken}`)
+            .form-group.row
+                label(for="name").col-sm-2.col-form-label Başlık *
+                .col-sm-10
+                    input.form-control#name(type="text" name="name", required, maxlength="80")
+            .form-group.row
+                label(for="imageUrl").col-sm-2.col-form-label Döküman *
+                .col-sm-10
+                    input.form-control#image(type="file" name="imageUrl", required) 
+            .form-group.row
+                label(for="description").col-sm-2.col-form-label Açıklama *
+                .col-sm-10
+                    textarea.form-control(name="description" cols="30" rows="10", required maxlength="1000")        
+            //- .form-group.row
+            //-     label(for="members").col-sm-2.col-form-label Ortaklar
+            //-     .col-sm-10
+            //-         select.form-control#userids(name="userids")
+            //-             option(value="-1") Ortaklar
+            //-             each user in users
+            //-                 option(value=`${user._id}`) #{user.name}
+                    //- select#cars(name='cars')
+                    //-     option(value='volvo') Abdullah
+                    //-     option(value='saab') Selim
+                    //-     option(value='mercedes') Necmi
+                    //-     option(value='audi') deadmau5
+            .form-group.row
+                label(for="userids").col-sm-2.col-form-label Ortaklar
+                .col-sm-10
+                    select.form-control#userids(name='userids')
+                        each user in users
+                            +createUsers(user)
+                        br
+            //- .form-group.row
+            //-     a(href="/add-more", class=('nav-link active')) Daha fazla ortak eklemek için tıklayınız
+            .form-group.row
+                label(for="butce").col-sm-2.col-form-label Bütçe Tahmini
+                .col-sm-10
+                    input.form-control(type="number" name="butce")
+            .form-group.row
+                label(for="kaynak").col-sm-2.col-form-label Kaynak Tahmini
+                .col-sm-10
+                    input.form-control(type="text" name="kaynak")
+            form-group.row
+                label(for="teydeb").col-sm-2.col-form-label TEYDEB Desteğine Uygunluk
+                .col-sm-10
+                    textarea.form-control(type="text" name="teydeb" placeholder="Frascati ve Oslo kriterlerine uygunluk – ayrı ayrı")
+            .form-group.row
+                .col-sm-10
+                    span * -- Zorunlu alanlar.
+            .form-group.row
+                .col-sm-10.offset-sm-2
+                    input(type="submit" value="Öneri Oluştur").btn.btn-primary   

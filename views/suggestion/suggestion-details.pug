@@ -1,0 +1,58 @@
+extends ../layouts/main-layout.pug
+
+include ../mixins/comments.pug
+
+block content   
+    br
+    h1(class="text-center") #{suggestion.name}
+    hr
+    .row
+        .col-md-9.pl-3
+            p.p-5 #{suggestion.description}
+            .mb-3
+    .row
+        .col-md-9.pl-3
+            p.p-4 Öneri Oyu:  #{suggestion.rating}
+            .mb-3
+        
+    hr
+    .row
+        .col-md-12
+        if user.isEvaluater == false
+            form(action='/interested-suggestions' method='POST')
+                input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                input(type='hidden' name='suggestionId' value=`${suggestion._id}`)
+                button(type='submit').btn.btn-primary.btn-sm.ml-3 Öneriyle ilgileniyorum
+            
+        form(action='/rate' method='POST')
+                input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                input(type='hidden' name='suggestionId' value=`${suggestion._id}`)
+                button(type='submit').btn.btn-primary.btn-sm.ml-3  Oy Ver
+    hr
+    .row
+        .col-md-12
+            p.p-1
+            input(type='hidden' name='suggestionId' value=`${suggestion._id}`)
+            a(href=`/list-users/${suggestion._id}`).btn.btn-primary.btn-sm-3 Öneriyle İlgilenen Kullanıcılar 
+            p.p-1
+    hr
+    
+    .row
+        if comments.length > 0
+            each comment in comments
+                +comments(comment)
+        else
+            p.p-5 Henüz öneri hakkında bir yorum yok.
+    hr
+    
+    form(action="/comment" method="POST")
+        input(type="hidden" name="_csrf" value=`${csrfToken}`)
+        
+        input(type='hidden' name='suggestionId' value=`${suggestion._id}`)
+        .form-group.row
+            label(for="comment").col-sm-2.col-form-label Yorum *
+                textarea.form-control(name="comment" cols="100" rows="5", required maxlength="1000") 
+            
+        .form-group.row
+            .col-sm-10.offset-sm-2
+                button(type='submit').btn.btn-outline-primary.btn-sm.ml-3 Yorum yap

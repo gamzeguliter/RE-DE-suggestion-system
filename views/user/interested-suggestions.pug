@@ -1,0 +1,32 @@
+extends ../layouts/main-layout.pug
+
+block content 
+    if (action !== 'undefined' && action === 'delete')
+        div.alert.alert-danger Öneri silindi
+
+    if (action !== 'undefined' && action === 'edit')
+        div.alert.alert-success Öneri editlendi
+    
+    if suggestions.length > 0
+        table.table.table-bordered
+            thead
+                tr
+                    
+                    th Öneri İsmi
+                    
+                    th(style="width:133px;") 
+            tbody
+                each suggestion in suggestions
+                    tr
+                        
+                            
+                        td #{suggestion.suggestionId.name}
+                        td
+                            form(action='/delete-interestedSuggestion' method='POST')
+                                input(type='hidden' name='suggestionId' value=`${suggestion.suggestionId._id}`)
+                                input(type='hidden' name='userId' value=`${user._id}`)
+                                input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                                button(type='submit').btn.btn-danger.btn-sm Öneriden vazgeç
+
+    else
+        h1 Öneri yok                      

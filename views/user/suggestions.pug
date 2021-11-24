@@ -1,0 +1,35 @@
+extends ../layouts/main-layout.pug
+
+block content 
+    if (action !== 'undefined' && action === 'delete')
+        div.alert.alert-danger The suggestion has been removed.
+
+    if (action !== 'undefined' && action === 'edit')
+        div.alert.alert-success The suggestion has been updated.
+    
+    if suggestions.length > 0 
+        table.table.table-bordered
+            thead
+                tr
+                    
+                    th Öneri Adı
+                    th
+                    th(style="width:133px;")
+            tbody
+                each suggestion in suggestions
+                    //- if suggestion.userId === user._id
+                    tr
+                        td #{suggestion.name}
+                    
+                        td
+
+                            a.btn.btn-primary.btn-sm.mr-2(href=`/suggestions/${suggestion._id}`) Düzenle
+
+                            form(action='/delete-suggestion' method='POST')
+                                input(type='hidden' name='suggestionid' value=`${suggestion._id}`)
+                                input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                                button(type='submit').btn.btn-danger.btn-sm Sil
+
+                         
+    else
+        h1 No Suggestions                        
