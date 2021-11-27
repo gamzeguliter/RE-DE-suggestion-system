@@ -11,7 +11,7 @@ const mongoDbStore = require('connect-mongodb-session')(session);
 
 ///To store sessions 
 var store = new mongoDbStore({
-    uri:' mongodb+srv://gamze1:yoga720@cluster0.4c96v.mongodb.net/Cluster0?retryWrites=true&w=majority',
+    uri:' mongodb+srv://
     collection: 'sessions2'
 });
 
@@ -57,7 +57,7 @@ app.use(accountRoutes);
 app.use(errorController.get404Page);
 
 // DB Connection 
-mongoose.connect('mongodb+srv://gamze1:yoga720@cluster0.4c96v.mongodb.net/Cluster0?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://gamze1:')
     .then(() => {
     console.log('connected to mongodb');
        app.listen(3000);
