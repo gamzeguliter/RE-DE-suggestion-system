@@ -7,7 +7,7 @@ const { base64encode, base64decode } = require('nodejs-base64');
 const sgMail = require('@sendgrid/mail');
 //const bcrypt = require('bcrypt');
 // Lütfen değiştirmeyin, çalışıyor bu. Sadece aşağıdaki mail adresini değiştirin.
-sgMail.setApiKey("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");
+sgMail.setApiKey("");
 
 
  
